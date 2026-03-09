@@ -1,0 +1,422 @@
+  {% load static %}    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Birthday Poster</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'birthday/style2.css' %}"> {% endcomment %}
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lavishly+Yours&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            
+            .container-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: #000;
+            }
+            
+            .shape-container {
+               width: 580px;
+    height: 1235px; /* 1080/2300 ratio scaled */
+                aspect-ratio: 1080/2300;
+                position: relative;
+                overflow: hidden;
+                background: #dfecce;
+            }
+            
+            /* Desktop: Add black bars on sides */
+            @media (min-width: 580px) {
+                .container-wrapper {
+                    background: #000;
+                }
+            }
+            
+            /* Mobile: Full width, no black bars */
+            @media (max-width: 579px) {
+                .date-box {
+                    scale: 0.7 !important;
+                }
+
+                .shape-container {
+                    max-width: 100vw;
+                    height: 100vh;
+                }
+                .container-wrapper {
+                    background: #f5f5f5;
+                }
+                .photo-container {
+                     width: 62% !important;
+                }
+                 #bottomLogos img {
+        height: 3rem !important;
+        max-width: 100px !important;
+    }
+            }
+            
+.red-shape {
+    background: #c55d5e;
+   clip-path: polygon(0 18%, 100% 38%, 100% 100%, 0% 100%);
+}
+          .playfair {
+                font-family: 'Playfair Display', serif;
+            }
+            .para {
+                font-family: "DM Serif Text", serif;
+            }
+            .dancing {
+                font-family: 'Dancing Script', cursive;
+            }
+            .script {
+                font-family: 'Lavishly Yours', cursive;
+            }
+             .poppins {
+                font-family: 'Poppins', sans-serif;
+            }
+            
+            /* Mobile: Move flag up */
+            @media (max-width: 579px) {
+                .celebration-flag {
+                    top: -10% !important;
+                }
+            }
+
+            .canvas-safe {
+    color: #dfecce !important;
+    }
+        </style>
+    </head>
+    <body>
+        <div class="container-wrapper">
+            <div id="poster"  class="shape-container">
+                
+                <!-- red shape -->
+                <!-- <div class="red-shape absolute top-0 left-0 w-full h-full z-0"></div> -->
+                 <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                
+                    <polygon 
+                        points="0,18 100,38 100,100 0,100" 
+                        fill="#c55d5e"
+                    />
+                </svg>
+                
+                <!-- Abstract background image -->
+                <img src="{% static 'birthday/images/Abstract Pattern.png' %}" alt="" class="absolute inset-0 w-full h-full z-10">
+                
+                <!-- Black section below line -->
+                <div class="absolute bottom-0 left-0 right-0 bg-black z-5" style="height: 42%;"></div>
+                
+                <!-- leaf image -->
+                <div class="absolute left-[-10%] z-20" style="top: 1%;">
+                    <img 
+                        src="{% static 'birthday/images/Leaf Green.png' %}" 
+                        alt="leaf"
+                        class="w-52 sm:w-52 h-auto object-contain" crossorigin="anonymous"
+                    >
+                </div>
+                <!-- leaf image shadow -->
+                <div class="absolute right-[-25%] z-20" style="top: 12%;">
+                    <img 
+                        src="{% static 'birthday/images/Leaf Green.png' %}" 
+                        alt="leaf"
+                        class="w-96 sm:w-96 h-auto object-contain scale-x-[-1] opacity-20"
+                        crossorigin="anonymous"
+                    >
+                </div>
+                <!-- HAPPY BIRTHDAY text -->
+                 <div class="absolute  z-100 text-center w-full" >
+                    <h1 class="script font-bold leading-tight " style="font-size: clamp(30px, 8vw, 70px); color: #C8998B;">
+                        Happy
+                    </h1>
+                    <h1 class="playfair font-bold leading-tight " style="font-size: clamp(30px, 8vw, 60px); color: #C0565A;">
+                        Birthday
+                    </h1>
+                </div>
+                
+                <!-- Polaroid-style photo container -->
+                <div class=" photo-container absolute top-[15%] left-[40%] -translate-x-[60%]  z-20 w-[42%]">
+                    <div class="bg-white p-2 shadow-2xl ">
+
+                        <!-- Photo upload -->
+                        <!-- Photo upload -->
+                        <div 
+                            id="photoContainer"
+                            class="w-full bg-gray-200 overflow-hidden cursor-pointer"
+                            style="aspect-ratio: 3.5/4.7; background-image: url('{% static 'birthday/images/person.png' %}'); background-size: cover; background-position: center top; background-repeat: no-repeat;"
+                            onclick="document.getElementById('photoInput').click()">
+
+                            <input
+                                type="file"
+                                id="photoInput"
+                                accept="image/*"
+                                class="hidden"
+                                onchange="previewPhoto(event)"
+                            >
+                        </div>
+    
+                  
+                    </div>
+                </div>
+                
+                <!-- flower1 image -->
+                <div class="absolute left-[46%] z-20" style="top: 12%;">
+                    <img 
+                        src="{% static 'birthday/images/Flower 1.png' %}" 
+                        alt="flower"
+                        class="w-32 sm:w-32 h-auto object-contain" crossorigin="anonymous"
+                    >
+                </div>
+                <!-- flower2 image -->
+                <div class="absolute left-[5%] z-20" style="top: 33%;">
+                    <img 
+                        src="{% static 'birthday/images/Flower 2.png' %}" 
+                        alt="flower"
+                        class="w-32 sm:w-32 h-auto object-contain" crossorigin="anonymous"
+                    >
+                </div>
+
+                <!-- Name -->
+                    {% comment %} <div class="absolute left-[58%] z-20 max-w-[50%] " style="top: 440px;">
+                        <p contenteditable="true"
+                        class="dancing font-medium leading-tight text-left"
+                        style="font-size: clamp(16px, 2.8vw, 26px); color: #dfecce;">
+                            Dr. Dhanya Menon
+                        </p>
+
+                        <div class="date-box absolute left-[-30%] z-30 shadow-lg flex items-center scale-50 border-white border-2" >
+                            <div class="px-5 py-2 text-center bg-white" style="border-color: #833E91;">
+                                <p contenteditable="true" class="poppins leading-none" style="font-size: clamp(32px, 5vw, 42px); color: #c55d5e; line-height: 1; padding-bottom: 2px;">
+                                    27<sup contenteditable="false" class="text-lg">th</sup>
+                                </p>
+                            </div>
+
+                            <div class="px-5 text-center  ">
+                                <p contenteditable="true" class="poppins text-white leading-tight text-left z-100" style="font-size: clamp(18px, 2.5vw, 30px); line-height: 1; padding-bottom: 2px;">
+                                    MONTH
+                                </p>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+
+                <!-- Name -->
+<div class="absolute left-[58%] z-20 max-w-[50%]" style="top: 430px;">
+    <p contenteditable="true"
+    class="dancing font-medium leading-tight text-left"
+    style="font-size: clamp(16px, 2.8vw, 26px); color: #dfecce;">
+        Dr. Dhanya Menon
+    </p>
+</div>
+
+<!-- Date box (independent, fixed position) -->
+<div class="date-box absolute z-30 shadow-lg flex items-center scale-50 border-white border-2" style="top: 460px; left: 48%;">
+    <div class="px-5 py-2 text-center bg-white" style="border-color: #833E91;">
+        <p contenteditable="true" class="poppins leading-none" style="font-size: clamp(32px, 5vw, 42px); color: #c55d5e; line-height: 1; padding-bottom: 2px;">
+            27<sup class="text-lg">th</sup>
+        </p>
+    </div>
+    <div class="px-5 text-center">
+        <p contenteditable="true" class="poppins text-white leading-tight text-left z-100" style="font-size: clamp(18px, 2.5vw, 30px); line-height: 1; padding-bottom: 2px;">
+            MONTH
+        </p>
+    </div>
+</div>
+                
+                
+                <!-- Thank you message -->
+                <div class="absolute text-center w-full" style="top: 43%;">
+                    <p class="para font-medium text-center w-full " style="font-size: clamp(12px, 2.8vw, 17px); color: #FFF100;">
+                        Happy Birthday to our team's amazing family member! 
+                    </p>
+                    <p class="para font-medium text-center w-full " style="font-size: clamp(12px, 2.8vw, 17px); color: #FFF100;">
+                        We're grateful for your love and support.
+                    </p>
+                    <p class="para font-medium text-center w-full " style="font-size: clamp(12px, 2.8vw, 17px); color: #FFF100;">
+                        Here's to another year of love, laughter, and adventure!
+                    </p>
+                    
+                </div>
+                
+                <!-- red leaf image -->
+                <div class="absolute right-[-15%] z-20" style="top: 40%;">
+                    <img 
+                        src="{% static 'birthday/images/Leaf Red.png' %}" 
+                        alt="flower"
+                        class="w-56 sm:w-56 h-auto object-contain" crossorigin="anonymous"
+                    >
+                </div>
+                
+                <!-- Horizontal line -->
+                <hr id="horizontalLine" class="absolute bottom-[42%] w-full border-t border-gray-400 z-20">
+
+                <!-- Bottom logos -->
+                <div id="bottomLogos" class="absolute bottom-[44%] left-0 right-0 flex justify-between items-end px-6 z-30">
+                    <!-- Avanzo Charitable Trust Logo (Left - Gold) -->
+                    <div class="flex-1 flex justify-start">
+                        <img src="{% static 'birthday/images/Avanzo Trust Logo White.png' %}" alt="Avanzo Charitable Trust" class="h-25  w-auto object-contain" style="max-width: 120px;">
+                    </div>
+                    
+                    <!-- Avanzo Cyber Security Solutions Logo (Center) -->
+                    <div class="flex-1 flex justify-center">
+                        <img src="{% static 'birthday/images/Avanzo Logo white.png' %}" alt="Avanzo Cyber Security Solutions" class="h-25 w-auto object-contain" style="max-width: 150px;">
+                    </div>
+                    
+                    <!-- Avanzo Cyber Institute Logo (Right - red) -->
+                    <div class="flex-1 flex justify-end">
+                        <img src="{% static 'birthday/images/Accademy Logo full white.png' %}" alt="Avanzo Cyber Institute" class="h-25 w-auto object-contain" style="max-width: 180px;">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+<button
+    onclick="downloadImage()"
+    class="fixed bottom-40 right-6 z-[999] bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-full shadow-xl flex items-center gap-2"
+>
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+    </svg>
+
+     Download Image
+</button>
+
+<!-- Download PDF -->
+<button
+    onclick="downloadPDF()"
+    class="fixed bottom-24 right-6 z-[999] bg-purple-700 hover:bg-purple-800 text-white px-5 py-3 rounded-full shadow-xl flex items-center gap-2"
+>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+    </svg> Download PDF
+</button>
+
+<!-- Logout -->
+<a
+    href="{% url 'logout' %}"
+    class="fixed bottom-8 right-6 z-[999] bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-full shadow-xl flex items-center gap-2"
+>
+    ⏻ Logout
+</a>
+
+    <script>
+function previewPhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        document.getElementById('photoContainer').style.backgroundImage = `url('${e.target.result}')`;
+    };
+    reader.readAsDataURL(file);
+}
+    </script>
+
+    <!-- html2canvas -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <!-- jsPDF -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+    <script>
+async function downloadImage() {
+    const poster = document.getElementById("poster");
+    const blackSection = document.querySelector('.absolute.bottom-0.bg-black');
+    const horizontalLine = document.getElementById("horizontalLine");
+    
+    if (blackSection) blackSection.style.display = "none";
+    if (horizontalLine) horizontalLine.style.display = "none";
+
+     // 🔥 WAIT FOR FONTS
+    await document.fonts.ready;
+
+    const canvas = await html2canvas(poster, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: "#f5f5f5"
+    });
+
+    if (blackSection) blackSection.style.display = "block";
+    if (horizontalLine) horizontalLine.style.display = "block";
+
+    const croppedCanvas = document.createElement('canvas');
+    const cropHeight = canvas.height * 0.58;
+    croppedCanvas.width = canvas.width;
+    croppedCanvas.height = cropHeight;
+    
+    const ctx = croppedCanvas.getContext('2d');
+    ctx.drawImage(canvas, 0, 0);
+
+    const imgData = croppedCanvas.toDataURL("image/png");
+    const link = document.createElement('a');
+    link.download = 'birthday-poster.png';
+    link.href = imgData;
+    link.click();
+}
+
+async function downloadPDF() {
+    const poster = document.getElementById("poster");
+    const blackSection = document.querySelector('.absolute.bottom-0.bg-black');
+    const horizontalLine = document.getElementById("horizontalLine");
+    
+    if (blackSection) blackSection.style.display = "none";
+    if (horizontalLine) horizontalLine.style.display = "none";
+
+    const canvas = await html2canvas(poster, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#f5f5f5"
+    });
+
+    if (blackSection) blackSection.style.display = "block";
+    if (horizontalLine) horizontalLine.style.display = "block";
+
+    const croppedCanvas = document.createElement('canvas');
+    const cropHeight = canvas.height * 0.58;
+    croppedCanvas.width = canvas.width;
+    croppedCanvas.height = cropHeight;
+    
+    const ctx = croppedCanvas.getContext('2d');
+    ctx.drawImage(canvas, 0, 0);
+
+    const imgData = croppedCanvas.toDataURL("image/png");
+    const { jsPDF } = window.jspdf;
+
+    const pdf = new jsPDF("p", "mm", "a5");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    const imgRatio = croppedCanvas.width / croppedCanvas.height;
+    const pdfRatio = pdfWidth / pdfHeight;
+
+    let imgWidth = pdfWidth;
+    let imgHeight = pdfHeight;
+    let x = 0;
+    let y = 0;
+
+    if (imgRatio > pdfRatio) {
+        imgHeight = pdfWidth / imgRatio;
+        y = (pdfHeight - imgHeight) / 2;
+    } else {
+        imgWidth = pdfHeight * imgRatio;
+        x = (pdfWidth - imgWidth) / 2;
+    }
+
+    pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
+    pdf.save("birthday-poster.pdf");
+}
+    </script>
+
+
+
+    </body>
+    </html>
