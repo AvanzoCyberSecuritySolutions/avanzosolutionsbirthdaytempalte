@@ -113,9 +113,6 @@
                 <!-- Abstract background image -->
                 <img src="{% static 'images/Abstract Pattern.png' %}" alt="" class="absolute inset-0 w-full h-full z-10">
                 
-                <!-- Black section below line -->
-                <div class="absolute bottom-0 left-0 right-0 bg-black z-5" style="height: 42%;"></div>
-                
                 <!-- leaf image -->
                 <div class="absolute left-[-10%] z-20" style="top: 1%;">
                     <img 
@@ -238,24 +235,21 @@
                     >
                 </div>
                 
-                <!-- Horizontal line -->
-                <hr id="horizontalLine" class="absolute bottom-[42%] w-full border-t border-gray-400 z-20">
-
                 <!-- Bottom logos -->
-                <div id="bottomLogos" class="absolute bottom-[44%] left-0 right-0 flex justify-between items-end px-6 z-30">
-                    <!-- Avanzo Charitable Trust Logo (Left - Gold) -->
+                <div id="bottomLogos" class="absolute bottom-[42%] left-0 right-0 flex justify-between items-center px-10 z-30">
+                    <!-- Avanzo Charitable Trust Logo (Left - Dark) -->
                     <div class="flex-1 flex justify-start">
-                        <img src="{% static 'birthday/images/Avanzo Trust Logo White.png' %}" alt="Avanzo Charitable Trust" class="h-25  w-auto object-contain" style="max-width: 120px;">
+                        <img src="{% static 'birthday/images2/Avanzo Trust Logo White.png' %}" alt="Avanzo Charitable Trust" class="h-auto w-auto object-contain" style="max-width: 140px;">
                     </div>
                     
-                    <!-- Avanzo Cyber Security Solutions Logo (Center) -->
+                    <!-- Avanzo Cyber Security Solutions Logo (Center - Colored) -->
                     <div class="flex-1 flex justify-center">
-                        <img src="{% static 'birthday/images/Avanzo Logo white.png' %}" alt="Avanzo Cyber Security Solutions" class="h-25 w-auto object-contain" style="max-width: 150px;">
+                        <img src="{% static 'birthday/images2/Artboard 2.png' %}" alt="Avanzo Cyber Security Solutions" class="h-auto w-auto object-contain" style="max-width: 220px;">
                     </div>
                     
-                    <!-- Avanzo Cyber Institute Logo (Right - red) -->
+                    <!-- Avanzo Cyber Institute Logo (Right - Colored) -->
                     <div class="flex-1 flex justify-end">
-                        <img src="{% static 'birthday/images/Accademy Logo full white.png' %}" alt="Avanzo Cyber Institute" class="h-25 w-auto object-contain" style="max-width: 180px;">
+                        <img src="{% static 'birthday/images2/Accademy Logo full white.png' %}" alt="Avanzo Cyber Institute" class="h-auto w-auto object-contain" style="max-width: 160px;">
                     </div>
                 </div>
 
@@ -313,12 +307,7 @@ function previewPhoto(event) {
     <script>
 async function downloadImage() {
     const poster = document.getElementById("poster");
-    const blackSection = document.querySelector('.absolute.bottom-0.bg-black');
-    const horizontalLine = document.getElementById("horizontalLine");
     
-    if (blackSection) blackSection.style.display = "none";
-    if (horizontalLine) horizontalLine.style.display = "none";
-
      // 🔥 WAIT FOR FONTS
     await document.fonts.ready;
 
@@ -328,18 +317,7 @@ async function downloadImage() {
         backgroundColor: "#f5f5f5"
     });
 
-    if (blackSection) blackSection.style.display = "block";
-    if (horizontalLine) horizontalLine.style.display = "block";
-
-    const croppedCanvas = document.createElement('canvas');
-    const cropHeight = canvas.height * 0.58;
-    croppedCanvas.width = canvas.width;
-    croppedCanvas.height = cropHeight;
-    
-    const ctx = croppedCanvas.getContext('2d');
-    ctx.drawImage(canvas, 0, 0);
-
-    const imgData = croppedCanvas.toDataURL("image/png");
+    const imgData = canvas.toDataURL("image/png");
     const link = document.createElement('a');
     link.download = 'birthday-poster.png';
     link.href = imgData;
@@ -348,37 +326,21 @@ async function downloadImage() {
 
 async function downloadPDF() {
     const poster = document.getElementById("poster");
-    const blackSection = document.querySelector('.absolute.bottom-0.bg-black');
-    const horizontalLine = document.getElementById("horizontalLine");
     
-    if (blackSection) blackSection.style.display = "none";
-    if (horizontalLine) horizontalLine.style.display = "none";
-
     const canvas = await html2canvas(poster, {
         scale: 2,
         useCORS: true,
         backgroundColor: "#f5f5f5"
     });
 
-    if (blackSection) blackSection.style.display = "block";
-    if (horizontalLine) horizontalLine.style.display = "block";
-
-    const croppedCanvas = document.createElement('canvas');
-    const cropHeight = canvas.height * 0.58;
-    croppedCanvas.width = canvas.width;
-    croppedCanvas.height = cropHeight;
-    
-    const ctx = croppedCanvas.getContext('2d');
-    ctx.drawImage(canvas, 0, 0);
-
-    const imgData = croppedCanvas.toDataURL("image/png");
+    const imgData = canvas.toDataURL("image/png");
     const { jsPDF } = window.jspdf;
 
     const pdf = new jsPDF("p", "mm", "a5");
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
 
-    const imgRatio = croppedCanvas.width / croppedCanvas.height;
+    const imgRatio = canvas.width / canvas.height;
     const pdfRatio = pdfWidth / pdfHeight;
 
     let imgWidth = pdfWidth;
